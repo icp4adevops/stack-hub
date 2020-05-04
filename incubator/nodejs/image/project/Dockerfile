@@ -1,14 +1,14 @@
-FROM registry.access.redhat.com/ubi8/nodejs-12:1-27
+FROM registry.access.redhat.com/ubi8/nodejs-12:1-36
 
 USER root
 
 # Install OS updates
-RUN yum upgrade --disableplugin=subscription-manager -y \
- && yum clean --disableplugin=subscription-manager packages \
- && useradd --uid 1000 --gid 0 --shell /bin/bash --create-home node
+RUN useradd --uid 1000 --gid 0 --shell /bin/bash --create-home node
 
-COPY package*.json /project/
-COPY user-app /project/user-app
+COPY .* /project/
+COPY *.* /project/
+COPY Dockerfile /project/
+COPY user-app /project/user-app/
 
 # Install user-app dependencies
 WORKDIR "/project/user-app"

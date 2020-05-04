@@ -1,10 +1,9 @@
-FROM registry.access.redhat.com/ubi8/nodejs-10:1-66
+FROM registry.access.redhat.com/ubi8/nodejs-12:1-36
 
 USER root
 
 # Install OS updates
-RUN yum upgrade --disableplugin=subscription-manager -y \
- && yum install --disableplugin=subscription-manager python2 -y \
+RUN yum install --disableplugin=subscription-manager python2 openssl-devel -y \
  && yum clean --disableplugin=subscription-manager packages \
  && ln -s /usr/bin/python2 /usr/bin/python \
  && useradd --uid 1000 --gid 0 --shell /bin/bash --create-home node
@@ -25,10 +24,6 @@ RUN npm install --unsafe-perm --production
 # Install user-app dependencies
 WORKDIR /project/user-app
 RUN npm install --unsafe-perm --production
-
-COPY package*.json /project/
-COPY *.js /project/
-COPY user-app /project/user-app
 
 RUN chown -hR node:0 /project \
  && chmod -R g=u /project

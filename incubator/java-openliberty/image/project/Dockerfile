@@ -1,5 +1,5 @@
 # Step 1: Build the user's application
-FROM kabanero/ubi8-maven:0.3.1 as compile
+FROM kabanero/ubi8-maven:0.9.0 as compile
 
 RUN  groupadd java_group \
    && useradd --gid java_group --shell /bin/bash --create-home java_user \
@@ -13,7 +13,7 @@ RUN  groupadd java_group \
    &&  mkdir /shared \
    && chown -R java_user:java_group /shared 
 
-USER java_user
+ USER java_user
 
 # Copy and build the dev.appsody:java-openliberty parent pom
 COPY --chown=java_user:java_group ./pom.xml /project/pom.xml
@@ -45,6 +45,7 @@ COPY --chown=java_user:java_group ./user-app /project/user-app
 #  also liberty:create copies config from src->target
 #  also remove quick-start-security.xml since it's convenient for local dev mode but should not be in the production image.
 RUN cd /project/user-app && \
+    echo "QUICK START SECURITY IS NOT SECURE FOR PRODUCTION ENVIRONMENTS. IT IS BEING REMOVED" && \
     rm -f src/main/liberty/config/configDropins/defaults/quick-start-security.xml && \
     mvn -Pappsody-build -B liberty:create package
 
@@ -73,6 +74,5 @@ COPY --chown=1001:0 --from=compile /config/ /config/
 
 # 2d) Changes to the application binary
 COPY --chown=1001:0 --from=compile /project/user-app/target/*.[ew]ar /config/apps
-
 RUN configure.sh && \
     chmod 664 /opt/ol/wlp/usr/servers/defaultServer/configDropins/defaults/keystore.xml
