@@ -1,6 +1,6 @@
 name: Quarkus
 version: 0.3.4
-description: Quarkus runtime for running Java applications
+description: Quarkus runtime for running Java applications (Tech Preview)
 license: Apache-2.0
 language: java
 maintainers:
