@@ -13,11 +13,11 @@ This stack is based on OpenJDK with container-optimizations in OpenJ9 and `Open 
 
 This stack requires the [Open Liberty Operator](https://github.com/OpenLiberty/open-liberty-operator) to be installed in the cluster prior to deploying the stack.
 
-Operator user guide can be viewed [here](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/user-guide.md)
+Operator user guide can be viewed [here](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/user-guide.adoc)
 
 Aside from `OpenLibertyApplication` CRD used to deploy the application, Open Liberty Operator provides day-2 operations such as `OpenLibertyDump` and `OpenLibertyTrace`
 
-These additional [day-2 operations](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/user-guide.md#day-2-operations) make it easier to collect debug data from the running Open Liberty pods in the Kubernetes cluster.
+These additional [day-2 operations](https://github.com/OpenLiberty/open-liberty-operator/blob/master/doc/user-guide.adoc#day-2-operations) make it easier to collect debug data from the running Open Liberty pods in the Kubernetes cluster.
 
 
 ## Templates
@@ -140,7 +140,7 @@ Additionally, the Java Open Liberty stack includes a set of custom variables and
 
 Custom template variables are defined in the `stack.yaml` file. The Java Open Liberty stack includes the following that are propagated when the stack is packaged.
 
-* **libertyversion** - The version of the Open Liberty runtime to be used for development and production images. Without any other modifications to the Dockerfiles in this project, this version must be a quarterly release (x.0.0.3, x.0.0.6, x.0.0.9, x.0.0.12)
+* **libertyversion** - The version of the Open Liberty runtime to be used for development and production images. 
 
 * **parentpomgroup** - The group id used for the parent pom definition and a prefix for the default template group id.
 * **parentpomid** - The artifact id used for the parent pom definition
